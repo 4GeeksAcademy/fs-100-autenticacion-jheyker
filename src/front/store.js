@@ -18,6 +18,26 @@ export const initialStore=()=>{
 
 export default function storeReducer(store, action = {}) {
   switch(action.type){
+     case 'logout':
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      return {
+        ...store,
+        user: null
+      };
+    case 'get_user_info':
+      localStorage.setItem('user', JSON.stringify(action.payload));
+      return {
+        ...store,
+        user: action.payload
+      };
+    case 'login_register':
+      localStorage.setItem('user', JSON.stringify(action.payload.user));
+      localStorage.setItem('token', action.payload.token);
+      return {
+        ...store,
+        user: action.payload.user
+      };
     case 'set_hello':
       return {
         ...store,
